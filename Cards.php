@@ -5,18 +5,13 @@ class Carta{
     private int $numero;
     private string $nome;
 
+    private string $naipe;
 
-    /**
-     * Get the value of numero
-     */
     public function getNumero(): int
     {
         return $this->numero;
     }
 
-    /**
-     * Set the value of numero
-     */
     public function setNumero(int $numero): self
     {
         $this->numero = $numero;
@@ -24,34 +19,60 @@ class Carta{
         return $this;
     }
 
-    /**
-     * Get the value of nome
-     */
     public function getNome(): string
     {
         return $this->nome;
     }
 
-    /**
-     * Set the value of nome
-     */
     public function setNome(string $nome): self
     {
         $this->nome = $nome;
 
         return $this;
     }
+
+    public function getNaipe(): string
+    {
+        return $this->naipe;
+    }
+
+    public function setNaipe(string $naipe): self
+    {
+        $this->naipe = $naipe;
+
+        return $this;
+    }
+
 }
 
+
+
+function sortearCarta($baralho){
+    $cartaSorteada = $baralho[array_rand($baralho)];
+    return $cartaSorteada;
+}
+
+$frances = [
+        "Paus" => array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Valete", "Dama", "Reis"),
+        "Ouro" => array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Valete", "Dama", "Reis"),
+        "Espada" => array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Valete", "Dama", "Reis"),
+        "Copas" => array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Valete", "Dama", "Reis"),
+];
+
+
+
+
+
+$baralho = array();
+$cartaSorteada = null;
+
+//Gerar o baralho de cartas e a carta sorteada
 do{
+    echo "\n";
     echo str_repeat("=", 42) . "\n";
     echo "      BEM-VINDO AO JOGO DE ADIVINHAÇÃO      \n";
     echo str_repeat("=", 42) . "\n";
-    echo "          1 - \n";
-    echo "          2 - \n";
-    echo "          3 - \n";
-    echo "          4 - \n";
-    echo "          5 - \n";
+    echo "          1 - Baralho Francês (tradcicional)\n";
     echo "          0 - Encerrar o Programa\n";
     echo str_repeat("=", 42) . "\n";
 
@@ -60,27 +81,30 @@ do{
 
     switch ($escolha) {
         case 0:
-            echo "Encerrando o programa...";
+            echo "Encerrando o programa...\n";
             break;
 
         case 1:
-            
-            break;
-        
-        case 2:
-            
-            break;
-            
-        case 3:
-            
-            break;
+            echo "BARALHO FRANCÊS\n";
+            $i=1;
+            foreach($frances as $naipe => $cartasDoNaipe){
+                foreach($cartasDoNaipe as $c){
+                    $carta = new Carta();
+                    $carta->setNumero($i);
+                    $carta->setNaipe($naipe);
+                    $carta->setNome($c);
 
-        case 4:
-         
-            break;
+                    $i++;
 
-        case 5:
-            
+                    array_push($baralho, $carta);
+                }
+            }
+            foreach($frances as $naipe => $n){
+                $valoresGeral = implode (", ", $n);
+                echo $naipe . " -> " . $valoresGeral . "\n";
+            }
+            $cartaSorteada = sortearCarta($baralho);
+            echo "A carta foi sorteada tente adivinhá-la!!";
             break;
 
         default:
@@ -88,3 +112,6 @@ do{
             break;
     }
 }while($escolha != 0);
+
+//Rotina para a advinhação da carta
+
