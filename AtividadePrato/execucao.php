@@ -13,7 +13,6 @@ $pratos = [
 
 $pedidos = [];
 $valorTotal = 0;
-$option = 0;
 
 while(true){
     print("\n╔══════════════Menu═══════════╗\n");
@@ -22,7 +21,7 @@ while(true){
     print("║ 2: Cancelar                 ║\n");
     print("║ 3: Listar                   ║\n");
     print("║ 4: Total de Vendas          ║\n");
-    print("║ 0: Encerrar o pragrama      ║\n");
+    print("║ 0: Encerrar o programa      ║\n");
     print("╚═════════════════════════════╝\n\n");
 
     $num = readline("Opção: ");
@@ -30,23 +29,27 @@ while(true){
         case 1:
             $nameCliente = readline("Nome do cliente: ");
             $nameGarcom = readline("Nome do garçom: ");
-            
-            echo"\n\n";
-            print("╔════════════════════Tabela Pratos═════════════════════╗\n");
-            print("║ Número ║              Nome             ║  Valor(R$)  ║\n");
-            print("║═════════════════════════════════════════════════════ ║\n");
-            print("║   1    ║        Camarão à Milanesa     ║  R$110      ║\n");
-            print("║   2    ║        Pizza Margherita       ║  R$80       ║\n");
-            print("║   3    ║        Macarrão à Bolonhesa   ║  R$60       ║\n");
-            print("║   4    ║        Bife à Parmegiana      ║  R$75       ║\n");
-            print("║   5    ║        Risoto ao Funghi       ║  R$70       ║\n");
-            print("╚══════════════════════════════════════════════════════╝\n\n");
 
+            echo "\n══════════════════════Tabela Pratos═════════════════════\n";
+            foreach($pratos as $pr){
+                echo "N° Prato: " . $pr->getNumero() . " | Nome: " 
+                . $pr->getNome() . " | Valor(R$): " . $pr->getValor() . ".\n";
+            }
+
+            echo"\n";
             $numPrato = readline("Número do prato (1 ao 5): ");
+            $prato = null;
+
             foreach($pratos as $p){
                 if($p->getNumero() == $numPrato){
                     $prato = $p;
+                    break; // Encerra o loop se encontrar o prato
                 }
+            }
+
+            if (!isset($prato)) {
+                echo "Prato não encontrado!\n";
+                break;
             }
 
             $pedido1 = new Pedido();
@@ -55,6 +58,8 @@ while(true){
                      -> setPrato($prato);
 
             array_push($pedidos, $pedido1);
+            print("Pedido cadastrado!");
+
             break;
 
         case 2:
@@ -63,59 +68,49 @@ while(true){
                     echo "Pedido " . ($key + 1) . " | " . $p->getNome() . " | " . $p->getPrato()->getNome() . "\n";
                 }
                 
-                $option = readline("\nNúmero do pedido a ser cancelado: ");
+                echo"\n";
+                $option = readline("Número do pedido a ser cancelado: ");
                 $option = $option - 1;
 
-                if($option <= count($pedidos)){
+                if($option >= 0 && $option < count($pedidos)){
                     array_splice($pedidos, $option, 1);
                     echo "Pedido removido com sucesso\n";
-                    break;
-                }
-                else{
+                } else {
                     echo "Número inválido!!! Não foi possível remover.\n";
                 }
-            }
-            else{
-                "Não há pedidos cadastrados\n";
-            } 
-            break;
-
-
-        case 3: 
-            if(count($pedidos) > 0){      
-                foreach($pedidos as $p){
-                    echo $p;
-                }
-            }
-            else{
+            } else {
                 echo "Não há pedidos cadastrados\n";
             } 
             break;
 
-
+        case 3: 
+            if(count($pedidos) > 0){      
+                foreach($pedidos as $p){
+                    echo "Cliente: " . $p->getNome() . " | Garçom: " . $p->getGarcom() . " | Prato: " . $p->getPrato()->getNome() . "\n";
+                }
+            } else {
+                echo "Não há pedidos cadastrados\n";
+            } 
+            break;
 
         case 4: 
+            $valorTotal = 0; // Reiniciar o total
             if(count($pedidos) > 0){      
                 foreach($pedidos as $p){
                     $valorTotal += $p->getPrato()->getValor();
-                 }
-     
-                 echo "Valor total de todos os pedidos: R$" . $valorTotal;
-                 echo "\n";
-            }
-            else{
-                "Não há pedidos cadastrados\n";
+                }
+                echo "Valor total de todos os pedidos: R$" . $valorTotal . "\n";
+            } else {
+                echo "Não há pedidos cadastrados\n";
             } 
             break; 
 
         case 0:
             print("Programa encerrado...\n");
             return true;
-            break;
 
         default: 
-            print("Opção invalida!\n");
-
+            print("Opção inválida!\n");
     }
 }
 ?>
