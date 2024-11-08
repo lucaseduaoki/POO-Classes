@@ -10,7 +10,8 @@ class Hotel extends Espaco{
     public function getDadosHotel() { 
         $dados = "HOTEL\n";
         $dados .= $this -> getDadosEspaco();
-        $dados .= "Tipo de comida: ". $this->getEs(). "\n";
+        $dados .= "Número de Estrelas: ". $this->getNumEstrelas(). "\n";
+        $dados .= "Café incluso: ". $this->isCafeIncluso(). "\n";
 
         return $dados;
     }
