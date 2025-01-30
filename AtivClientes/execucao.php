@@ -1,71 +1,79 @@
-<?php
 
+<?php
 require_once("modelo/ClientePF.php");
 require_once("modelo/ClientePJ.php");
 require_once("dao/ClienteDAO.php");
-
 require_once("util/Conexao.php");
-
-//Teste da conexão
-/*require_once("util/Conexao.php");
 $con = Conexao::getCon();
-print_r($con); */
 
-do {
-    echo "\n\n----CADASTRO DE CLIENTES----\n";
-    echo "1- Cadastrar Cliente PF\n";
-    echo "2- Cadastrar Cliente PJ\n";
-    echo "3- Listar Clientes\n";
-    echo "4- Buscar Cliente\n";
-    echo "5- Excluir Cliente\n";
-    echo "0- Sair\n";
+while(true){
+    print("╔═══════Cadastro Clientes══════╗\n");
+    print("║      O que deseja fazer?     ║\n");
+    print("║    1: Cadastrar Cliente PF   ║\n");
+    print("║    2: Cadastrar Cliente PJ   ║\n");
+    print("║    3: Listar Clientes        ║\n");
+    print("║    4: Buscar Clientes        ║\n");
+    print("║    5: Excluir Clientes       ║\n");
+    print("║    0: Encerrar o pragrama    ║\n");
+    print("╚══════════════════════════════╝\n");
 
-    $opcao = readline("Informe a opção: ");
-    switch ($opcao) {
+    $num = readline("");
+    switch($num){
         case 1:
-            //Criar o objeto a ser persistido
             $cliente = new ClientePF();
-            $cliente->setNome(readline("Informe o nome: "));
-            $cliente->setNomeSocial(readline("Informe o nome social: "));
-            $cliente->setCpf(readline("Informe o CPF: "));
-            $cliente->setEmail(readline("Informe o e-mail: "));
+            $cliente->setNome(readline("Qual o seu nome? "));
+            $cliente->setCPF(readline("Qual o seu CPF? "));
+            $cliente->setEmail(readline("Qual o seu e-mail? "));
+            $cliente->setNomeSocial(readline("Qual o seu nome social? "));
 
-            //Chamar o método do DAO para persistir o objeto
-            $clienteDAO = new ClienteDAO();
-            $clienteDAO->inserirCliente($cliente);
-
-            echo "Cliente PF cadastrado com sucesso\n\n";
+            $clienteDao = new ClienteDao();
+            $clienteDao->inserirCliente($cliente);
+            print("Cliente PF cadastrado com sucesso!\n");
             break;
-
-
         case 2:
             $cliente = new ClientePJ();
-            $cliente->setRazaoSocial(readline("Informe a razão social: "));
-            $cliente->setCnpj(readline("Informe o CNPJ: "));
-            $cliente->setNomeSocial(readline("Informe o nome social: "));
-            $cliente->setEmail(readline("Informe o e-mail: "));
+            $cliente->setNomeSocial(readline("Qual o seu nome social? "));
+            $cliente->setEmail(readline("Qual o seu e-mail? "));
+            $cliente->setCNPJ(readline("Qual o seu CNPJ? "));
+            $cliente->setRazaoSocial(readline("Qual a sua razão social? "));
 
-            //Chamar o método do DAO para persistir o objeto
-            $clienteDAO = new ClienteDAO();
-            $clienteDAO->inserirCliente($cliente);
-
-            echo "Cliente PJ cadastrado com sucesso\n\n";
-        break;
-
+            $clienteDao = new ClienteDao();
+            $clienteDao->inserirCliente($cliente);
+            print("Cliente PJ cadastrado com sucesso!\n");
+            break;
         case 3:
+            $clienteDao = new ClienteDao();
+            $registros = $clienteDao->listarClientes();
+            foreach($registros as $dados){
+                echo $dados;
+            }
             break;
 
         case 4:
+            $clienteDao = new ClienteDao();
+            $registros = $clienteDao->buscarClientes(readline("Informe o codigo de identificação(ID): \n"));
+            foreach($registros as $dados){
+                echo $dados;
+            }
             break;
 
         case 5:
+            $clienteDao = new ClienteDao;
+            $registros = $clienteDao->listarClientes();
+            foreach($registros as $dados){
+                echo $dados;
+            }
+
+            $registros = $clienteDao->excluirCliente(readline("Informe o codigo de identificação(ID): \n"));
+            echo ("Exclusão feita com sucesso");
             break;
 
         case 0:
-            echo "Programa encerrado!\n";
-            break;
-
-        default:
-            echo "Opção inválida!";
+            print("Programa encerrado...\n");
+            return true;
+            
+        default: 
+            print("Opção invalida!\n");
     }
-} while($opcao != 0);
+}    
+?>
