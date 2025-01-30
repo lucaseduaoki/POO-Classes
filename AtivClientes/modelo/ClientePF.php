@@ -17,7 +17,7 @@ class ClientePF extends Cliente {
         return $this->cpf;
     }
 
-    public function getTipo() {
+    public function getrTipo() {
         return "F";
     }
 
