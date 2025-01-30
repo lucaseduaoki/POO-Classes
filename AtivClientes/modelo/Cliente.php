@@ -1,18 +1,21 @@
-<?php 
-
+<?php
 abstract class Cliente {
-
-    //Atributos
     protected int $id;
     protected string $nomeSocial;
     protected string $email;
 
-    //Métodos
-    public abstract function getIdentificacao();
-    public abstract function getNroDoc();
-    public abstract function getTipo();
+    abstract public function getIdentificacao();
+    abstract public function getNroDoc();
+    abstract public function getrTipo();
 
-    //GETs e SET
+    public function __toString() {
+        return sprintf("%d- %s | %s | %s | %s | %s\n",
+                        $this->id, $this->getrTipo() | $this->nomeSocial |
+                        $this->getIdentificacao() | $this->getNroDoc() |
+                        $this->email);
+        
+    }
+
     /**
      * Get the value of id
      */
@@ -67,3 +70,4 @@ abstract class Cliente {
         return $this;
     }
 }
+?>
