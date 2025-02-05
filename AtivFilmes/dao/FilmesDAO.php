@@ -1,16 +1,16 @@
 <?php
-require_once("modelo/Cliente.php");
-require_once("modelo/ClientePF.php");
-require_once("modelo/ClientePJ.php");
+require_once("modelo/Produto.php");
+require_once("modelo/Filme.php");
+require_once("modelo/Série.php");
 require_once("util/Conexao.php");
 
 class ClienteDAO {
-    public function inserirCliente(Cliente $cliente) {
+    public function inserirProduto(Produto $produto) {
         $sql = "INSERT INTO clientes(tipo, nome_social, email, nome, cpf, razao_social, cnpj) VALUES(?,?,?,?,?,?,?)";
 
         $con = Conexao::getCon();
         $stmt = $con->prepare($sql);
-        if($cliente instanceof ClientePF){
+        if($produto instanceof Filme){
             $stmt->execute(array($cliente->getrTipo(), $cliente->getNomeSocial(), $cliente->getEmail(),$cliente->getNome(), $cliente->getCPF(), null, null));
         } else if($cliente instanceof ClientePJ){
             $stmt->execute(array($cliente->getrTipo(), $cliente->getNomeSocial(), $cliente->getEmail(), null, null, $cliente->getRazaoSocial(), $cliente->getCNPJ()));
