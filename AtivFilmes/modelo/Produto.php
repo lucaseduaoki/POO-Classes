@@ -8,10 +8,10 @@ abstract class Produto{
     protected int $classIndicativa;
     protected string $diretor;
     protected string $genero;
-    protected bool $adptLivro;
-    protected bool $dispoWeb;
+    protected string $adptLivro;
+    protected string $dispoWeb;
 
-    
+
 
     /**
      * Get the value of id
@@ -142,7 +142,7 @@ abstract class Produto{
     /**
      * Get the value of adptLivro
      */
-    public function isAdptLivro(): bool
+    public function getAdptLivro(): string
     {
         return $this->adptLivro;
     }
@@ -150,7 +150,7 @@ abstract class Produto{
     /**
      * Set the value of adptLivro
      */
-    public function setAdptLivro(bool $adptLivro): self
+    public function setAdptLivro(string $adptLivro): self
     {
         $this->adptLivro = $adptLivro;
 
@@ -160,7 +160,7 @@ abstract class Produto{
     /**
      * Get the value of dispoWeb
      */
-    public function isDispoWeb(): bool
+    public function getDispoWeb(): string
     {
         return $this->dispoWeb;
     }
@@ -168,7 +168,7 @@ abstract class Produto{
     /**
      * Set the value of dispoWeb
      */
-    public function setDispoWeb(bool $dispoWeb): self
+    public function setDispoWeb(string $dispoWeb): self
     {
         $this->dispoWeb = $dispoWeb;
 
