@@ -1,13 +1,12 @@
-
 <?php
 
 require_once("Produto.php");
 
 class Filme extends Produto {
     private int $tempoDuracao;
-    private bool $continuidade;
-    private bool $cinema;
-    private bool $uniFisica;
+    private string $continuidade;
+    private string $cinema;
+    private string $uniFisica;
 
     public function getDadosProduto(){
         
@@ -21,17 +20,17 @@ class Filme extends Produto {
         $dados .="-----------------------------------------------------------------\n";
         $dados .= "Gênero: ".$this-> getGenero()."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Adaptação de livro: ".($this -> adptLivro ? "Sim" : "Não")."\n";
+        $dados .= "Adaptação de livro: ".$this -> getAdptLivro()."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Tempo de duração: ".$this->getTempoDuracao()."\n";
+        $dados .= "Tempo de duração: ".$this->tempoDuracao."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Continuidade: ". ($this -> continuidade ? "Sim" : "Não")."\n";
+        $dados .= "Continuidade: ". $this->continuidade ."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Passou no cinema: ". ($this -> cinema ? "Sim" : "Não")."\n";
+        $dados .= "Passou no cinema: ". $this->cinema ."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Está disponível em meio físico: ". ($this -> uniFisica ? "Sim" : "Não")."\n";
+        $dados .= "Está disponível em meio físico: ". $this->uniFisica."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Está disponível em meio web: ". ($this -> dispoWeb ? "Sim" : "Não")."\n\n";
+        $dados .= "Está disponível em meio web: ". $this->getDispoWeb() ."\n\n";
         return $dados;
     }
 
@@ -58,7 +57,7 @@ class Filme extends Produto {
     /**
      * Get the value of continuidade
      */
-    public function isContinuidade(): bool
+    public function getContinuidade(): string
     {
         return $this->continuidade;
     }
@@ -66,7 +65,7 @@ class Filme extends Produto {
     /**
      * Set the value of continuidade
      */
-    public function setContinuidade(bool $continuidade): self
+    public function setContinuidade(string $continuidade): self
     {
         $this->continuidade = $continuidade;
 
@@ -76,7 +75,7 @@ class Filme extends Produto {
     /**
      * Get the value of cinema
      */
-    public function isCinema(): bool
+    public function getCinema(): string
     {
         return $this->cinema;
     }
@@ -84,7 +83,7 @@ class Filme extends Produto {
     /**
      * Set the value of cinema
      */
-    public function setCinema(bool $cinema): self
+    public function setCinema(string $cinema): self
     {
         $this->cinema = $cinema;
 
@@ -94,7 +93,7 @@ class Filme extends Produto {
     /**
      * Get the value of uniFisica
      */
-    public function isUniFisica(): bool
+    public function getUniFisica(): string
     {
         return $this->uniFisica;
     }
@@ -102,7 +101,7 @@ class Filme extends Produto {
     /**
      * Set the value of uniFisica
      */
-    public function setUniFisica(bool $uniFisica): self
+    public function setUniFisica(string $uniFisica): self
     {
         $this->uniFisica = $uniFisica;
 
