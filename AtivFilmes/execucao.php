@@ -1,7 +1,7 @@
 <?php
 require_once("modelo/Filme.php");
 require_once("modelo/Serie.php");
-require_once("dao/ProdutoDAO.php");
+require_once("dao/FilmesDAO.php");
 require_once("util/Conexao.php");
 
 $con = Conexao::getCon();
@@ -34,42 +34,42 @@ while(true){
             echo "-----------------------------------------------------------------\n";
             $produto->setGenero(readline("Digite o gênero do filme: "));
             echo "-----------------------------------------------------------------\n";
-            $adptLivro = readline("O filme é uma adaptação de livro? (1 - Sim | 2 - Não ): ");
+            $a = readline("O filme é uma adaptação de livro? (1 - Sim | 2 - Não ): ");
             echo "-----------------------------------------------------------------\n";
-            if ($adptLivro == 1) {
-                $produto->setAdptLivro(true);
-            } else {
-                $produto->setAdptLivro(false);
+            if ($a == 1) {
+                $produto->setAdptLivro("Sim");
+            } elseif ($a == 2) {
+                $produto->setAdptLivro('Não');
             }
             $produto->setTempoDuracao(readline("Qual o tempo de duração do filme? (em minutos): "));
             echo "-----------------------------------------------------------------\n";
-            $continuidade = readline("O filme tem continuidade? (1 - Sim | 2 - Não ): ");
+            $c = readline("O filme tem continuidade? (1 - Sim | 2 - Não ): ");
             echo "-----------------------------------------------------------------\n";
-            if ($continuidade == 1) {
-                $produto->setContinuidade(true);
-            } else {
-                $produto->setContinuidade(false);
+            if ($c == 1) {
+                $produto->setContinuidade("Sim");
+            } elseif ($c == 2) {
+                $produto->setContinuidade("Não");
             }
-            $cinema = readline("Estreiou nos cinemas? (1 - Sim | 2 - Não ): ");
+            $cin = readline("Estreiou nos cinemas? (1 - Sim | 2 - Não ): ");
             echo "-----------------------------------------------------------------\n";
-            if ($cinema == 1) {
-                $produto->setCinema(true);
-            } else {
-                $produto->setCinema(false);
+            if ($cin == 1) {
+                $produto->setCinema("Sim");
+            } elseif ($cin == 2){
+                $produto->setCinema("Não");
             }
-            $meioFisico = readline("A locadora possui o meio físico desse filme? (1 - Sim | 2 - Não ): ");
+            $mF = readline("A locadora possui o meio físico desse filme? (1 - Sim | 2 - Não ): ");
             echo "-----------------------------------------------------------------\n";
-            if ($meioFisico == 1) {
-                $produto->setUniFisica(true);
-            } else {
-                $produto->setUniFisica(false);
+            if ($mF == 1) {
+                $produto->setUniFisica("Sim");
+            } elseif ($mF == 2) {
+                $produto->setUniFisica("Não");
             }
-            $dispoWeb = readline("O filme está disponível na web? (1 - Sim | 2 - Não ): ");
+            $dW = readline("O filme está disponível na web? (1 - Sim | 2 - Não ): ");
             echo "-----------------------------------------------------------------\n";
-            if ($dispoWeb == 1) {
-                $produto->setDispoWeb(true);
-            } else {
-                $produto->setDispoWeb(false);
+            if ($dW == 1) {
+                $produto->setDispoWeb("Sim");
+            } elseif ($dW ==2 ) {
+                $produto->setDispoWeb("Não");
             }
             $produtoDao = new ProdutoDAO();
             $produtoDao->inserirProduto($produto);
@@ -89,23 +89,23 @@ while(true){
             echo "-----------------------------------------------------------------\n";
             $produto->setGenero(readline("Digite o gênero da série: "));
             echo "-----------------------------------------------------------------\n";
-            $adptLivro = readline("A série é uma adaptação de livro? (1 - Sim | 2 - Não ): ");
+            $a = readline("A série é uma adaptação de livro? (1 - Sim | 2 - Não ): ");
             echo "-----------------------------------------------------------------\n";
-            if ($adptLivro == 1) {
-                $produto->setAdptLivro(true);
-            } else {
-                $produto->setAdptLivro(false);
+            if ($a == 1) {
+                $produto->setAdptLivro("Sim");
+            } elseif ($a == 2) {
+                $produto->setAdptLivro("Não");
             }
             $produto->setNumTemporadas(readline("Quantas temporadas a série tem? "));
             $produto->setTempAproxEp(readline("Qual o tempo aproximado de cada episódio? (em minutos): "));
             $produto->setNumAproxEp(readline("Quantos episódios aproximados por temporada? "));
             echo "-----------------------------------------------------------------\n";
-            $dispoWeb = readline("A série está disponível na web? (1 - Sim | 2 - Não ): ");
+            $dW = readline("A série está disponível na web? (1 - Sim | 2 - Não ): ");
             echo "-----------------------------------------------------------------\n";
-            if ($dispoWeb == 1) {
-                $produto->setDispoWeb(true);
-            } else {
-                $produto->setDispoWeb(false);
+            if ($dW == 1) {
+                $produto->setDispoWeb("Sim");
+            } elseif ($dW == 2){
+                $produto->setDispoWeb("Não");
             }
             $produtoDao = new ProdutoDAO();
             $produtoDao->inserirProduto($produto);
