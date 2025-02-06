@@ -1,4 +1,3 @@
-
 <?php
 
 require_once("Produto.php");
@@ -14,24 +13,29 @@ class Serie extends Produto {
     {   
         $dados = "Série: ". $this->getNome()."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Número de temporadas: ". $this->getNumTemporadas() ." \n";
+        $dados .= "Número de temporadas: ". $this->numTemporadas ." \n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Tempo aproximado por episódio: ".$this->getTempAproxEp()."\n";
+        $dados .= "Número de temporadas: ". $this->numAproxEp." \n";
+        $dados .="-----------------------------------------------------------------\n";
+        $dados .= "Tempo aproximado por episódio: ".$this->tempAproxEp."\n";
         $dados .="-----------------------------------------------------------------\n";
         $dados .= "Data de lançamento: ".$this->getDataLanc()."\n";
         $dados .="-----------------------------------------------------------------\n";
         $dados .= "Classificação indicativa: ". $this->getClassIndicativa()."\n";
         $dados .="-----------------------------------------------------------------\n";
+        $dados .= "Diretor: ". $this->getDiretor()."\n";
+        $dados .="-----------------------------------------------------------------\n";
         $dados .= "Gênero: ".$this-> getGenero()."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Adaptação de livro: ".($this -> adptLivro ? "Sim" : "Não")."\n";
+        $dados .= "Adaptação de livro: ".$this -> getAdptLivro()."\n";
         $dados .="-----------------------------------------------------------------\n";
-        $dados .= "Está disponível em meio web: ". ($this -> dispoWeb ? "Sim" : "Não")."\n\n";
-        $dados .= $this ->getDiretor()."\n\n";
+        $dados .= "Está disponível em meio web: ". $this ->getDispoWeb()."\n\n";
         return $dados;
     }
 
     
+
+
     /**
      * Get the value of numTemporadas
      */
