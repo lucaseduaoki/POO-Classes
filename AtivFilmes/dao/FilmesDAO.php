@@ -4,9 +4,12 @@ require_once("modelo/Filme.php");
 require_once("modelo/Serie.php");
 require_once("util/Conexao.php");
 
+
 class ProdutoDAO {
     public function inserirProduto(Produto $produto) {
-        $sql = "INSERT INTO produtos (tipo, nome, data_lanc, class_indicativa, diretor, genero, adaptado_de_livro, disponivel_web, num_temporadas, temp_aprox_ep, num_aprox_ep, tempo_duracao, continuidade, cinema, unidade_fisica) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO produtos (tipo, nome, data_lanc, class_indicativa, diretor, genero, adaptado_de_livro, 
+                                     disponivel_web, num_temporadas, temp_aprox_ep, num_aprox_ep, tempo_duracao, 
+                                     continuidade, cinema, unidade_fisica) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $con = Conexao::getCon();
         $stmt = $con->prepare($sql);
         if($produto instanceof Filme){
@@ -16,15 +19,15 @@ class ProdutoDAO {
                                  $produto->getClassIndicativa(),
                                  $produto->getDiretor(),
                                  $produto->getGenero(),
-                                 $produto->isAdptLivro(),
-                                 $produto->isDispoWeb(),
+                                 $produto->getAdptLivro(),
+                                 $produto->getDispoWeb(),
                                  null,
                                  null,
                                  null,
                                  $produto->getTempoDuracao(),
-                                 $produto->isContinuidade(),
-                                 $produto->isCinema(),
-                                 $produto->isUniFisica()
+                                 $produto->getContinuidade(),
+                                 $produto->getCinema(),
+                                 $produto->getUniFisica()
                             ));
                         }
 
@@ -35,8 +38,8 @@ class ProdutoDAO {
                                  $produto->getClassIndicativa(),
                                  $produto->getDiretor(),
                                  $produto->getGenero(),
-                                 $produto->isAdptLivro(),
-                                 $produto->isDispoWeb(),
+                                 $produto->getAdptLivro(),
+                                 $produto->getDispoWeb(),
                                  $produto->getNumTemporadas(),
                                  $produto->getTempAproxEp(),
                                  $produto->getNumAproxEp(),
@@ -64,8 +67,15 @@ class ProdutoDAO {
         foreach ($registros as $reg) {
             if ($reg['tipo'] == 'F') {
                 $produto = new Filme();
+                $produto->setTempoDuracao($reg['tempo_duracao']);
+                $produto->setContinuidade($reg['continuidade']);
+                $produto->setCinema($reg['cinema']);
+                $produto->setUniFisica($reg['unidade_fisica']);
             } else {
-                $cliente = new Serie();
+                $produto = new Serie();
+                $produto->setNumTemporadas($reg['num_temporadas']);
+                $produto->setTempAproxEp($reg['temp_aprox_ep']);
+                $produto->setNumAproxEp($reg['num_aprox_ep']);
             }
             $produto->setId($reg['id']);
             $produto->setTipo($reg['tipo']);
@@ -77,9 +87,9 @@ class ProdutoDAO {
             $produto->setAdptLivro($reg['adaptado_de_livro']);
             $produto->setDispoWeb($reg['disponivel_web']);
 
-        $produtos[] = $produto;
+            $Produtos[] = $produto;
         }
-        return $produtos;
+        return $Produtos;
     }
 
     public function buscarProduto($id) {
@@ -90,7 +100,7 @@ class ProdutoDAO {
         $stmt->execute(array($id));
         $registros = $stmt->fetchAll();
         
-        return $this->MAPProduto($registros);
+        $produtos = $this->MAPProduto($registros);
 
         if(count($produtos) > 0)
             return $produtos[0];
@@ -99,7 +109,7 @@ class ProdutoDAO {
     }
 
     public function excluirProduto($id){
-        $sql = "DELETE FROM produto WHERE id = ?";
+        $sql = "DELETE FROM produtos WHERE id = ?";
         $con = Conexao::getCon();
     
         $stmt = $con->prepare($sql);
