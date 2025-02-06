@@ -1,6 +1,8 @@
 <?php 
 
 abstract class Produto{
+    protected int $id;
+    protected string $tipo; /*F ou S (Filme ou Série)*/
     protected string $nome;
     protected string $dataLanc;
     protected int $classIndicativa;
@@ -8,6 +10,44 @@ abstract class Produto{
     protected string $genero;
     protected bool $adptLivro;
     protected bool $dispoWeb;
+
+    
+
+    /**
+     * Get the value of id
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of tipo
+     */
+    public function getTipo(): string
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set the value of tipo
+     */
+    public function setTipo(string $tipo): self
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
 
     /**
      * Get the value of nome
